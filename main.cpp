@@ -32,7 +32,7 @@
 bool wire_frame = false;
 bool mouse_down = false;
 bool is_animating = true;
-double last_time = get_seconds();
+double last_time = get_steady_seconds();
 double animation_seconds = 0;
 int width =  640;
 int height = 360;
@@ -157,7 +157,7 @@ Usage:
           is_animating ^= 1;
           if(is_animating)
           {
-            last_time = get_seconds();
+            last_time = get_steady_seconds();
           }
           break;
         case 'L':
@@ -241,7 +241,7 @@ Usage:
   // Main display routine
   while (!glfwWindowShouldClose(window))
   {
-    double tic = get_seconds();
+    double tic = get_steady_seconds();
 
     if(any_changed({argv[1]},time_of_last_json_load))
     {
@@ -308,7 +308,7 @@ Usage:
     {
       if(is_animating)
       {
-        double now = get_seconds();
+        double now = get_steady_seconds();
         animation_seconds += now - last_time;
         last_time = now;
       }
@@ -341,7 +341,7 @@ Usage:
     {
       glfwPollEvents();
       // In microseconds
-      double duration = 1000000.*(get_seconds()-tic);
+      double duration = 1000000.*(get_steady_seconds()-tic);
       const double min_duration = 1000000./60.;
       if(duration<min_duration)
       {
